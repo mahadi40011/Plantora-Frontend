@@ -39,21 +39,13 @@ const Login = () => {
     }
   };
 
-  // // form submit handler
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const form = event.target;
-  //   const email = form.email.value;
-  //   const password = form.password.value;
-
-  // };
-
   // Handle Google Signin
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
       //User Registration using google
       await signInWithGoogle();
+      
       navigate(from, { replace: true });
       toast.success("Login Successful");
     } catch (err) {
