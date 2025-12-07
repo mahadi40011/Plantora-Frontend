@@ -4,7 +4,7 @@ import axios from "axios";
 
 const PurchaseModal = ({ closeModal, isOpen, plant }) => {
   const { user } = useAuth();
-  const { _id, image, name, price, category, quantity, description, seller } =
+  const { _id, image, name, price, category, description, seller } =
     plant || {};
 
   const handlePayment = async () => {
@@ -14,6 +14,7 @@ const PurchaseModal = ({ closeModal, isOpen, plant }) => {
       name,
       price,
       category,
+      quantity: 1,
       description,
       seller,
       customer: {
@@ -23,10 +24,11 @@ const PurchaseModal = ({ closeModal, isOpen, plant }) => {
       },
     };
 
-    await axios.post(
+    const { data } = await axios.post(
       `${import.meta.env.VITE_SERVER_URL}/create-checkout-session`,
       paymentInfo
     );
+    window.location.href = data.url;
   };
 
   // Total Price Calculation
