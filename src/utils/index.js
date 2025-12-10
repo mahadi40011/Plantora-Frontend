@@ -39,6 +39,5 @@ export const setOrUpdateUser = async (userData) => {
     `${import.meta.env.VITE_SERVER_URL}/user`,
     userData
   );
-  console.log(data);
   return data;
 };
