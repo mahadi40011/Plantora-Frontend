@@ -32,3 +32,13 @@ export const imageUploadCloudinary = async (imageData) => {
 
   return data?.secure_url;
 };
+
+//Set or Update user in Database
+export const setOrUpdateUser = async (userData) => {
+  const { data } = await axios.post(
+    `${import.meta.env.VITE_SERVER_URL}/user`,
+    userData
+  );
+  console.log(data);
+  return data;
+};
