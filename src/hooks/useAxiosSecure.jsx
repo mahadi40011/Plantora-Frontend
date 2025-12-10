@@ -4,9 +4,9 @@ import axios from 'axios'
 import useAuth from './useAuth'
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
-})
+});
 
 const useAxiosSecure = () => {
   const { user, logOut, loading } = useAuth()
