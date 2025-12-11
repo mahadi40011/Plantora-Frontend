@@ -1,7 +1,23 @@
 import React from "react";
 import SellerRequestDataRow from "../../../components/Dashboard/TableRows/SellerRequestDataRow";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const SellerRequest = () => {
+  const { user, loading } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  const { data: requests = [], isLoading } = useQuery({
+    queryKey: ["Seller-Requests", user?.email],
+    queryFn: async () => {
+      const result = await axiosSecure(`/seller-requests`);
+      return result.data;
+    },
+  });
+  if (isLoading & loading) return <LoadingSpinner />;
+  
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
@@ -26,7 +42,9 @@ const SellerRequest = () => {
                 </tr>
               </thead>
               <tbody>
-                <SellerRequestDataRow/>
+                {requests.map((request) => (
+                  <SellerRequestDataRow key={request._id} request={request} />
+                ))}
               </tbody>
             </table>
           </div>
