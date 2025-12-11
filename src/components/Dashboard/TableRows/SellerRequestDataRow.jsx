@@ -1,6 +1,22 @@
 import React from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const SellerRequestDataRow = ({ request }) => {
+  const axiosSecure = useAxiosSecure();
+
+  const handleUpdateRole = async () => {
+    try {
+      await axiosSecure.patch("/update-role", {
+        email: request?.email,
+        role: "seller",
+      });
+      toast.success("Role Updated");
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+    }
+  };
+
   return (
     <tr>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -8,7 +24,10 @@ const SellerRequestDataRow = ({ request }) => {
       </td>
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <span className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+        <span
+          onClick={handleUpdateRole}
+          className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+        >
           <span
             aria-hidden="true"
             className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
