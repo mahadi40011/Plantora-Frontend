@@ -9,7 +9,7 @@ const SellerRequest = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: requests = [], isLoading } = useQuery({
+  const { data: requests = [], isLoading, refetch} = useQuery({
     queryKey: ["Seller-Requests", user?.email],
     queryFn: async () => {
       const result = await axiosSecure(`/seller-requests`);
@@ -17,7 +17,7 @@ const SellerRequest = () => {
     },
   });
   if (isLoading & loading) return <LoadingSpinner />;
-  
+
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
@@ -43,7 +43,7 @@ const SellerRequest = () => {
               </thead>
               <tbody>
                 {requests.map((request) => (
-                  <SellerRequestDataRow key={request._id} request={request} />
+                  <SellerRequestDataRow refetch={refetch} key={request._id} request={request} />
                 ))}
               </tbody>
             </table>

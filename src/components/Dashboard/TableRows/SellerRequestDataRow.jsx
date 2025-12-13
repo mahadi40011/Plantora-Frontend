@@ -2,7 +2,7 @@ import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
-const SellerRequestDataRow = ({ request }) => {
+const SellerRequestDataRow = ({ request, refetch }) => {
   const axiosSecure = useAxiosSecure();
 
   const handleUpdateRole = async () => {
@@ -11,6 +11,7 @@ const SellerRequestDataRow = ({ request }) => {
         email: request?.email,
         role: "seller",
       });
+      refetch()
       toast.success("Role Updated");
     } catch (err) {
       toast.error(err?.response?.data?.message);
