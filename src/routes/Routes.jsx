@@ -17,6 +17,7 @@ import { createBrowserRouter } from 'react-router'
 import PaymentSuccess from '../pages/Payment/PaymentSuccess'
 import SellerRequest from '../pages/Dashboard/Admin/SellerRequest'
 import AdminRoute from './AdminRoute'
+import SellerRoute from './SellerRoute'
 
 export const router = createBrowserRouter([
   {
@@ -60,7 +61,9 @@ export const router = createBrowserRouter([
         path: "add-plant",
         element: (
           <PrivateRoute>
-            <AddPlant />
+            <SellerRoute>
+              <AddPlant />
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
@@ -68,7 +71,9 @@ export const router = createBrowserRouter([
         path: "my-inventory",
         element: (
           <PrivateRoute>
-            <MyInventory />
+            <SellerRoute>
+              <MyInventory />
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
@@ -110,7 +115,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "manage-orders",
-        element: <ManageOrders />,
+        element: (
+          <PrivateRoute>
+            <SellerRoute>
+              <ManageOrders />
+            </SellerRoute>
+          </PrivateRoute>
+        ),
       },
     ],
   },
